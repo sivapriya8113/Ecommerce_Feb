@@ -1,6 +1,8 @@
+from django.contrib.auth.models import User
 from django.db import models
-
-
+from account.models import User
+from django.contrib.auth import get_user_model
+User = get_user_model()
 # Create your models here.
 
 
@@ -21,4 +23,10 @@ class Cloths(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class Cart(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    product = models.ForeignKey(Cloths, on_delete=models.CASCADE)
+    quantity = models.PositiveIntegerField(default=1)
 
